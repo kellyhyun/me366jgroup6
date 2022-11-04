@@ -71,22 +71,41 @@ for i in mididict:
         # mem2.append(i['type'])
         mem2.append(i['note'])
         mem2.append(i['time'])
-        mem2.append(int(i['delay']*bps))
+        mem2.append(np.round(i['delay']*bps*16)/(bps*16))
         mem2.append(i['channel'])
         output.append(mem2)
 
+        
+        old_i = i
         prevTime = i['time']
 # put timesignatures
-    if i['type'] == 'time_signature':
-        mem2.append(i['type'])
-        mem2.append(i['numerator'])
-        mem2.append(i['denominator'])
-        mem2.append(i['time'])
-        # mem2.append(int(i['delay']*bps))
+    elif i['type'] == 'time_signature':
+        # mem2.append(i['type'])
+        # mem2.append(i['numerator'])
+        # mem2.append(i['denominator'])
+        # mem2.append(i['time'])
+        # # mem2.append(int(i['delay']*bps))
+        # output.append(mem2)
+
+        mem2 = []
+        mem2.append('Note')
+        mem2.append('Time')
+        mem2.append("Delay")
+        mem2.append('Channel')
         output.append(mem2)
 
+        old_i = i
         prevTime = i['time']
 # viewing the midimessages.
+
+for n in range(1,len(output)):
+    # if str(output[n][2]).isnumeric():
+    try:
+        output[n][2] = output[n+1][2]
+    except IndexError:
+        output[n][2] = 0.0
+    # print(output[n][2])
+
 for i in output:
     print(i)
 print(mid.ticks_per_beat)
