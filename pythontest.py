@@ -9,7 +9,7 @@ import pandas as pd
 import time
 import serial
 
-file = r'C:/Users/kelly/OneDrive/Documents/homework/!Fall 2023/ME366J/Song1.csv'
+file = 'Song1.csv' #can use just the file name, not the full path, if it is in the same folder. This will make it easier to transfer code between computers
 
 portName = "COM3"
 baudRate = 115200
