@@ -42,31 +42,61 @@ for i in mididict:
 # put note, starttime, stoptime, as nested list in a list. # format is [type, note, time, channel]
     mem2=[]
     if i['type'] == 'note_on': #or i['type'] == 'note_off':
-
-        if i['note'] % 12 == 0:
-            i['note'] = 'C'
-        elif i['note'] % 12 == 1:
-            i['note'] = 'C#'
-        elif i['note'] % 12 == 2:
-            i['note'] = 'D'
-        elif i['note'] % 12 == 3:
-            i['note'] = 'Eb'
-        elif i['note'] % 12 == 4:
-            i['note'] = 'E'
-        elif i['note'] % 12 == 5:
-            i['note'] = 'F'
-        elif i['note'] % 12 == 6:
-            i['note'] = 'F#'
-        elif i['note'] % 12 == 7:
-            i['note'] = 'G'
-        elif i['note'] % 12 == 8:
-            i['note'] = 'G#'
-        elif i['note'] % 12 == 9:
-            i['note'] = 'A'
-        elif i['note'] % 12 == 10:
-            i['note'] = 'Bb'
-        elif i['note'] % 12 == 11:
-            i['note'] = 'B'
+        if i['note'] <= 66:
+            if i['note'] % 12 == 0:
+                i['note'] = 'C'
+            elif i['note'] % 12 == 1:
+                i['note'] = 'C#'
+            elif i['note'] % 12 == 2:
+                i['note'] = 'D'
+            elif i['note'] % 12 == 3:
+                i['note'] = 'Eb'
+            elif i['note'] % 12 == 4:
+                i['note'] = 'E'
+            elif i['note'] % 12 == 5:
+                i['note'] = 'F'
+            elif i['note'] % 12 == 6:
+                i['note'] = 'F#'
+            elif i['note'] % 12 == 7:
+                i['note'] = 'G/'
+            elif i['note'] % 12 == 8:
+                i['note'] = 'G#/'
+            elif i['note'] % 12 == 9:
+                i['note'] = 'A/'
+            elif i['note'] % 12 == 10:
+                i['note'] = 'Bb/'
+            elif i['note'] % 12 == 11:
+                i['note'] = 'B/'
+        elif i['note'] >= 69:
+            if i['note'] % 12 == 0:
+                i['note'] = 'C^'
+            elif i['note'] % 12 == 1:
+                i['note'] = 'C#^'
+            elif i['note'] % 12 == 2:
+                i['note'] = 'D^'
+            elif i['note'] % 12 == 3:
+                i['note'] = 'Eb^'
+            elif i['note'] % 12 == 4:
+                i['note'] = 'E^'
+            elif i['note'] % 12 == 5:
+                i['note'] = 'F^'
+            elif i['note'] % 12 == 6:
+                i['note'] = 'F#^'
+            elif i['note'] % 12 == 7:
+                i['note'] = 'G^'
+            elif i['note'] % 12 == 8:
+                i['note'] = 'G#^'
+            elif i['note'] % 12 == 9:
+                i['note'] = 'A'
+            elif i['note'] % 12 == 10:
+                i['note'] = 'Bb'
+            elif i['note'] % 12 == 11:
+                i['note'] = 'B'
+        else:
+            if i['note'] % 12 == 7:
+                i['note'] = 'G'
+            elif i['note'] % 12 == 8:
+                i['note'] = 'G#'
 
         # mem2.append(i['type'])
         mem2.append(i['note'])
@@ -105,6 +135,13 @@ for n in range(1,len(output)):
     except IndexError:
         output[n][2] = 0.0
     # print(output[n][2])
+
+m = 1
+while m < len(output):
+    if output[m][0] == output[m-1][0] and output[m-1][2] == 0.0:
+        del output[m]
+    else:
+        m+=1
 
 for i in output:
     print(i)
