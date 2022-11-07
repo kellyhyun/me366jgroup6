@@ -138,7 +138,7 @@ for n in range(1,len(output)):
 
 m = 1
 while m < len(output):
-    if output[m][0][-1] == output[m-1][0][-1] and output[m-1][1] == output[m][1]:
+    if (output[m][0][-1] == output[m-1][0][-1] or output[m][0][0] == output[m-1][0][0]) and output[m-1][1] == output[m][1]:
         output[m][0] = output[m-1][0]
         del output[m-1]
     elif output[m-1][2] == 0.0:
