@@ -58,34 +58,34 @@ for i in mididict:
             elif i['note'] % 12 == 6:
                 i['note'] = 'F#'
             elif i['note'] % 12 == 7:
-                i['note'] = 'G/'
+                i['note'] = '.G'
             elif i['note'] % 12 == 8:
-                i['note'] = 'G#/'
+                i['note'] = '.G#'
             elif i['note'] % 12 == 9:
-                i['note'] = 'A/'
+                i['note'] = '.A'
             elif i['note'] % 12 == 10:
-                i['note'] = 'Bb/'
+                i['note'] = '.Bb'
             elif i['note'] % 12 == 11:
-                i['note'] = 'B/'
+                i['note'] = '.B'
         elif i['note'] >= 69:
             if i['note'] % 12 == 0:
-                i['note'] = 'C^'
+                i['note'] = '^C'
             elif i['note'] % 12 == 1:
-                i['note'] = 'C#^'
+                i['note'] = '^C#'
             elif i['note'] % 12 == 2:
-                i['note'] = 'D^'
+                i['note'] = '^D'
             elif i['note'] % 12 == 3:
-                i['note'] = 'Eb^'
+                i['note'] = '^Eb'
             elif i['note'] % 12 == 4:
-                i['note'] = 'E^'
+                i['note'] = '^E'
             elif i['note'] % 12 == 5:
-                i['note'] = 'F^'
+                i['note'] = '^F'
             elif i['note'] % 12 == 6:
-                i['note'] = 'F#^'
+                i['note'] = '^F#'
             elif i['note'] % 12 == 7:
-                i['note'] = 'G^'
+                i['note'] = '^G'
             elif i['note'] % 12 == 8:
-                i['note'] = 'G#^'
+                i['note'] = '^G#'
             elif i['note'] % 12 == 9:
                 i['note'] = 'A'
             elif i['note'] % 12 == 10:
