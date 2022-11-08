@@ -28,6 +28,9 @@ output = []
 for i in mid:
     if i.type == 'note_on' or i.type == 'note_off' or i.type == 'time_signature':
         mididict.append(i.dict())
+    elif i.type == 'key_signature':
+        key = i.dict()
+        key = key['key']
 # change time values from delta to relative time.
 mem1=0
 for i in mididict:
@@ -103,11 +106,10 @@ for i in mididict:
         mem2.append(i['time'])
         mem2.append(np.round(i['delay']*bps*16)/(bps*16))
         mem2.append(i['channel'])
+        # if mem2[3] == 5:
         output.append(mem2)
-
-        
-        old_i = i
         prevTime = i['time']
+        
 # put timesignatures
     elif i['type'] == 'time_signature':
         # mem2.append(i['type'])
@@ -124,7 +126,6 @@ for i in mididict:
         mem2.append('Channel')
         output.append(mem2)
 
-        old_i = i
         prevTime = i['time']
 # viewing the midimessages.
 
@@ -138,10 +139,10 @@ for n in range(1,len(output)):
 
 m = 1
 while m < len(output):
-    if (output[m][0][-1] == output[m-1][0][-1] or output[m][0][0] == output[m-1][0][0]) and output[m-1][1] == output[m][1]:
+    if (output[m][0][-1] == output[m-1][0][-1] or output[m][0][0] == output[m-1][0][0]) and (output[m-1][1] == output[m][1]) and (output[m-1][3] == output[m][3]):
         output[m][0] = output[m-1][0]
         del output[m-1]
-    elif output[m-1][2] == 0.0:
+    elif (output[m-1][1] == output[m][1]) and (output[m-1][3] == output[m][3]):
         output[m][0] = output[m-1][0] + " " + output[m][0]
         del output[m-1]
     else:
@@ -150,6 +151,8 @@ while m < len(output):
 for i in output:
     print(i)
 print(mid.ticks_per_beat)
+# print(mid.tracks)
+# print(key)
 
 arr = np.asarray(output)
 
