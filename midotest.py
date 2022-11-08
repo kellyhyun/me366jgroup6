@@ -106,7 +106,7 @@ for i in mididict:
         mem2.append(i['time'])
         mem2.append(np.round(i['delay']*bps*16)/(bps*16))
         mem2.append(i['channel'])
-        # if mem2[3] == 5:
+        # if mem2[3] == 4:
         output.append(mem2)
         prevTime = i['time']
         
@@ -156,7 +156,7 @@ print(mid.ticks_per_beat)
 
 arr = np.asarray(output)
 
-pd.DataFrame(arr).to_csv('MidiTest.csv')
+pd.DataFrame(arr).to_csv('MidiTest.csv', header=False)
 
 # below are functions to find all the info you'd ever need out of Midi files
 
