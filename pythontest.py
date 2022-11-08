@@ -9,7 +9,7 @@ import pandas as pd
 import time
 import serial
 
-file = 'Song1.csv' #can use just the file name, not the full path, if it is in the same folder. This will make it easier to transfer code between computers
+file = 'MidiTest.csv' #can use just the file name, not the full path, if it is in the same folder. This will make it easier to transfer code between computers
 
 portName = "COM3"
 baudRate = 115200
@@ -22,25 +22,25 @@ def playSong(filePath):
     time.sleep(5)
     song = readSong(filePath)
     for index, row in song.iterrows():
-        note = row["note"]
-        delay = row["delay"]
+        note = row["Note"]
+        delay = row["Delay"]
         note = note.split()
         for each in note:
             sendData(each)
         time.sleep(delay)
         sendData('p')
         
-'''
-if there is zero delay for notes played at the same time
-def playSong(filePath):
+# TEST FUNCTION FOR UI
+def tester(filePath):
     time.sleep(5)
     song = readSong(filePath)
     for index, row in song.iterrows():
         note = row["note"]
         delay = row["delay"]
-        sendData(note)
+        note = note.split()
+        for each in note:
+            print(each)
         time.sleep(delay)
-'''
         
 
 def sendData(note):
@@ -54,3 +54,4 @@ def sendData(note):
 playSong(file)
 sendData('A')
 sendData('B')
+arduino.close()

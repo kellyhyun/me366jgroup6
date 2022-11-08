@@ -29,11 +29,11 @@ void loop() {
 }
 
 void play() {
-  digitalWrite(8,AStatus);
-  digitalWrite(4,BStatus);
+  digitalWrite(9,AStatus);
+  digitalWrite(10,BStatus);
   delay(400);
   AStatus = LOW;
   BStatus = LOW;
-  digitalWrite(8,AStatus);
-  digitalWrite(4,BStatus);
+  digitalWrite(9,AStatus);
+  digitalWrite(10,BStatus);
 }
