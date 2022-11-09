@@ -9,14 +9,14 @@ import pandas as pd
 import time
 import serial
 
-file = 'MidiTest.csv'
+file = 'C_Disney_Themes_-_Whole_New_World.csv'
 
-portName = "COM6"
+portName = "COM4"
 baudRate = 115200
 arduino = serial.Serial(portName, baudRate)
 
 def readSong(filePath):
-    return pd.read_csv(filePath, sep=',', header=1, low_memory = False)
+    return pd.read_csv(filePath, sep=',', header=0, low_memory = False)
 
 def playSong(filePath):
     

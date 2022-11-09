@@ -13,7 +13,7 @@ def get_tempo(mid):
     return 500000       # If not found return default tempo
 
 
-midFile = 'recording_basic_pitch'
+midFile = 'C_cant_hold_us'
 mid = mido.MidiFile(midFile+'.mid', clip=True)
 # mid.tracks
 

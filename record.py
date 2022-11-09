@@ -15,7 +15,7 @@ chan = 1
 
 # Record at 44400 samples per second
 smpl_rt = 44400
-seconds = 30
+seconds = 10
 filename = "recording.wav"
 
 # Create an interface to PortAudio

@@ -1,41 +1,46 @@
-byte AStatus = LOW;
-byte BStatus = LOW;
-byte CStatus = LOW;
-byte DStatus = LOW;
-byte EStatus = LOW;
-byte FStatus = LOW;
-byte GStatus = LOW;
-byte GLowStatus = LOW;
-byte ALowStatus = LOW;
-byte BLowStatus = LOW;
-byte CHighStatus = LOW;
-byte DHighStatus = LOW;
-byte EHighStatus = LOW;
-byte FHighStatus = LOW;
-byte GHighStatus = LOW;
+byte AStatus = HIGH;
+byte BStatus = HIGH;
+byte CStatus = HIGH;
+byte DStatus = HIGH;
+byte EStatus = HIGH;
+byte FStatus = HIGH;
+byte GStatus = HIGH;
+byte GLowStatus = HIGH;
+byte ALowStatus = HIGH;
+byte BLowStatus = HIGH;
+byte CHighStatus = HIGH;
+byte DHighStatus = HIGH;
+byte EHighStatus = HIGH;
+byte FHighStatus = HIGH;
+byte GHighStatus = HIGH;
 int GLowPin = 5;
 int ALowPin = 6;
 int BLowPin = 7;
 //CHANGE LATER//
 int CPin = 9;
-int DPin = 8;
+int DPin = 10;
 //            //
-int EPin = 10;
-int FPin = 11;
-int GPin = 12;
-int APin = 13;
-int BPin = 14;
-int CHighPin = 15;
-int DHighPin = 16;
-int EHighPin = 17;
-int FHighPin = 18;
-int GHighPin = 19;
+int EPin = 11;
+int FPin = 12;
+int GPin = 13;
+int APin = 14;
+int BPin = 15;
+int CHighPin = 16;
+int DHighPin = 17;
+int EHighPin = 18;
+int FHighPin = 19;
+int GHighPin = 20;
 
 
 
 void setup() {
  Serial.begin(115200);
  Serial.setTimeout(1);
+ pinMode(CPin,OUTPUT);
+ pinMode(DPin,OUTPUT);
+ pinMode(EPin,OUTPUT);
+ pinMode(FPin,OUTPUT);
+ pinMode(GPin,OUTPUT);
 }
 void loop() {
  if(Serial.available())
@@ -44,77 +49,77 @@ void loop() {
         switch(cmd)
         {
             case 'A':
-              AStatus = HIGH;
+              AStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'B':
-              BStatus = HIGH;
+              BStatus = LOW;
 //             Serial.println("Cmd received");
               break;
 
             case 'C':
-              CStatus = HIGH;
+              CStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'D':
-              DStatus = HIGH;
+              DStatus = LOW;
 //             Serial.println("Cmd received");
               break;
 
             case 'E':
-              EStatus = HIGH;
+              EStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'F':
-              FStatus = HIGH;
+              FStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'G':
-              GStatus = HIGH;
+              GStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'H':
-              GLowStatus = HIGH;
+              GLowStatus = LOW;
 //              Serial.println("Cmd received");
               break;
             
             case 'I':
-              ALowStatus = HIGH;
+              ALowStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'J':
-              BLowStatus = HIGH;
+              BLowStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'K':
-              CHighStatus = HIGH;
+              CHighStatus = LOW;
 //              Serial.println("Cmd received");
               break;
   
             case 'L':
-              DHighStatus = HIGH;
+              DHighStatus = LOW;
 //            Serial.println("Cmd received");
              break;
 
             case 'M':
-              EHighStatus = HIGH;
+              EHighStatus = LOW;
 //              Serial.println("Cmd received");
               break;
 
             case 'N':
-              FHighStatus = HIGH;
+              FHighStatus = LOW;
 //            Serial.println("Cmd received");
               break;
 
             case 'O':
-              GHighStatus = HIGH;
+              GHighStatus = LOW;
               //Serial.println("Cmd received");
               break;
   
@@ -141,22 +146,22 @@ void play() {
   digitalWrite(EHighPin,EHighStatus);
   digitalWrite(FHighPin,FHighStatus);
   digitalWrite(GHighPin,GHighStatus);
-  delay(400);
-  AStatus = LOW;
-  BStatus = LOW;
-  CStatus = LOW;
-  DStatus = LOW;
-  EStatus = LOW;
-  FStatus = LOW;
-  GStatus = LOW;
-  GLowStatus = LOW;
-  ALowStatus = LOW;
-  BLowStatus = LOW;
-  CHighStatus = LOW;
-  DHighStatus = LOW;
-  EHighStatus = LOW;
-  FHighStatus = LOW;
-  GHighStatus = LOW;
+  delay(50);
+  AStatus = HIGH;
+  BStatus = HIGH;
+  CStatus = HIGH;
+  DStatus = HIGH;
+  EStatus = HIGH;
+  FStatus = HIGH;
+  GStatus = HIGH;
+  GLowStatus = HIGH;
+  ALowStatus = HIGH;
+  BLowStatus = HIGH;
+  CHighStatus = HIGH;
+  DHighStatus = HIGH;
+  EHighStatus = HIGH;
+  FHighStatus = HIGH;
+  GHighStatus = HIGH;
   digitalWrite(GLowPin,GLowStatus);
   digitalWrite(ALowPin,ALowStatus);
   digitalWrite(BLowPin,BLowStatus);
