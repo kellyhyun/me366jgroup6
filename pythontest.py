@@ -9,38 +9,30 @@ import pandas as pd
 import time
 import serial
 
-file = 'Song1.csv' #can use just the file name, not the full path, if it is in the same folder. This will make it easier to transfer code between computers
+file = 'MidiTest.csv'
 
-portName = "COM3"
+portName = "COM6"
 baudRate = 115200
 arduino = serial.Serial(portName, baudRate)
 
 def readSong(filePath):
-    return pd.read_csv(filePath, sep=',', header=0, low_memory = False)
+    return pd.read_csv(filePath, sep=',', header=1, low_memory = False)
 
 def playSong(filePath):
-    time.sleep(5)
+    
     song = readSong(filePath)
+    print(song)
+    time.sleep(5)
     for index, row in song.iterrows():
-        note = row["note"]
-        delay = row["delay"]
+        note = row["Note"]
+        delay = row["Delay"]
+        print(note, delay)
         note = note.split()
         for each in note:
+            # time.sleep(0.005)
             sendData(each)
         time.sleep(delay)
         sendData('p')
-        
-'''
-if there is zero delay for notes played at the same time
-def playSong(filePath):
-    time.sleep(5)
-    song = readSong(filePath)
-    for index, row in song.iterrows():
-        note = row["note"]
-        delay = row["delay"]
-        sendData(note)
-        time.sleep(delay)
-'''
         
 
 def sendData(note):
@@ -48,9 +40,38 @@ def sendData(note):
         arduino.write(str.encode('A'))
     if note == 'B':
         arduino.write(str.encode('B'))
+    if note == 'C':
+        arduino.write(str.encode('C'))
+    #    print("I Work")
+    if note == 'D':
+        arduino.write(str.encode('D'))
+    if note == 'E':
+        arduino.write(str.encode('E'))
+    if note == 'F':
+        arduino.write(str.encode('F'))
+    if note == 'G':
+        arduino.write(str.encode('G'))
+    if note == '.G':
+        arduino.write(str.encode('H'))
+    if note == '.A':
+        arduino.write(str.encode('I'))
+    if note == '.B':
+        arduino.write(str.encode('J'))
+    if note == '^C':
+        arduino.write(str.encode('K'))
+    if note == '^D':
+        arduino.write(str.encode('L'))
+    if note == '^E':
+        arduino.write(str.encode('M'))
+    if note == '^F':
+        arduino.write(str.encode('N'))
+    if note == '^G':
+        arduino.write(str.encode('O'))
     if note == 'p':
-        arduino.write(str.encode('play'))
+        arduino.write(str.encode('p'))
 
 playSong(file)
 sendData('A')
 sendData('B')
+# sendData('p')
+arduino.close()
