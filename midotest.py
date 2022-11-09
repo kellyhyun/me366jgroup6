@@ -13,7 +13,7 @@ def get_tempo(mid):
     return 500000       # If not found return default tempo
 
 
-midFile = 'C_twinkle-twinkle-little-star'
+midFile = 'recording_basic_pitch'
 mid = mido.MidiFile(midFile+'.mid', clip=True)
 # mid.tracks
 
