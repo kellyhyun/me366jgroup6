@@ -9,9 +9,9 @@ import pandas as pd
 import time
 import serial
 
-file = 'C_Disney_Themes_-_Whole_New_World.csv'
+file = 'C_twinkle-twinkle-little-star.csv'
 
-portName = "COM4"
+portName = "COM6"
 baudRate = 115200
 arduino = serial.Serial(portName, baudRate)
 
