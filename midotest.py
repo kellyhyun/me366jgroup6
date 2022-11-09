@@ -12,7 +12,9 @@ def get_tempo(mid):
             return n.tempo
     return 500000       # If not found return default tempo
 
-mid = mido.MidiFile('twinkle-twinkle-little-star.mid', clip=True)
+
+midFile = 'C_twinkle-twinkle-little-star'
+mid = mido.MidiFile(midFile+'.mid', clip=True)
 # mid.tracks
 
 tempo = get_tempo(mid)
@@ -49,57 +51,68 @@ for i in mididict:
             if i['note'] % 12 == 0:
                 i['note'] = 'C'
             elif i['note'] % 12 == 1:
-                i['note'] = 'C#'
+                # i['note'] = 'C#'
+                i['note'] = ''
             elif i['note'] % 12 == 2:
                 i['note'] = 'D'
             elif i['note'] % 12 == 3:
-                i['note'] = 'Eb'
+                # i['note'] = 'Eb'
+                i['note'] = ''
             elif i['note'] % 12 == 4:
                 i['note'] = 'E'
             elif i['note'] % 12 == 5:
                 i['note'] = 'F'
             elif i['note'] % 12 == 6:
-                i['note'] = 'F#'
+                # i['note'] = 'F#'
+                i['note'] = ''
             elif i['note'] % 12 == 7:
                 i['note'] = '.G'
             elif i['note'] % 12 == 8:
-                i['note'] = '.G#'
+                # i['note'] = '.G#'
+                i['note'] = ''
             elif i['note'] % 12 == 9:
                 i['note'] = '.A'
             elif i['note'] % 12 == 10:
-                i['note'] = '.Bb'
+                # i['note'] = '.Bb'
+                i['note'] = ''
             elif i['note'] % 12 == 11:
                 i['note'] = '.B'
         elif i['note'] >= 69:
             if i['note'] % 12 == 0:
                 i['note'] = '^C'
             elif i['note'] % 12 == 1:
-                i['note'] = '^C#'
+                # i['note'] = '^C#'
+                i['note'] = ''
             elif i['note'] % 12 == 2:
                 i['note'] = '^D'
             elif i['note'] % 12 == 3:
-                i['note'] = '^Eb'
+                # i['note'] = '^Eb'
+                i['note'] = ''
             elif i['note'] % 12 == 4:
                 i['note'] = '^E'
             elif i['note'] % 12 == 5:
                 i['note'] = '^F'
             elif i['note'] % 12 == 6:
-                i['note'] = '^F#'
+                # i['note'] = '^F#'
+                i['note'] = ''
             elif i['note'] % 12 == 7:
                 i['note'] = '^G'
             elif i['note'] % 12 == 8:
-                i['note'] = '^G#'
+                # i['note'] = '^G#'
+                i['note'] = ''
             elif i['note'] % 12 == 9:
                 i['note'] = 'A'
             elif i['note'] % 12 == 10:
-                i['note'] = 'Bb'
+                # i['note'] = 'Bb'
+                i['note'] = ''
             elif i['note'] % 12 == 11:
                 i['note'] = 'B'
         else:
             if i['note'] % 12 == 7:
                 i['note'] = 'G'
             elif i['note'] % 12 == 8:
-                i['note'] = 'G#'
+                # i['note'] = 'G#'
+                i['note'] = ''
 
         # mem2.append(i['type'])
         mem2.append(i['note'])
@@ -139,14 +152,44 @@ for n in range(1,len(output)):
 
 m = 1
 while m < len(output):
-    if (output[m][0][-1] == output[m-1][0][-1] or output[m][0][0] == output[m-1][0][0]) and (output[m-1][1] == output[m][1]) and (output[m-1][3] == output[m][3]):
-        output[m][0] = output[m-1][0]
-        del output[m-1]
-    elif (output[m-1][1] == output[m][1]) and (output[m-1][3] == output[m][3]):
-        output[m][0] = output[m-1][0] + " " + output[m][0]
-        del output[m-1]
-    else:
-        m+=1
+    try:
+        if (output[m][0][-1] == output[m-1][0][-1] or output[m][0][0] == output[m-1][0][0]) and (output[m-1][2] == 0):# and (output[m-1][3] == output[m][3]):
+            output[m][0] = output[m-1][0]
+            del output[m-1]
+        elif (output[m-1][2] == 0.0):# and (output[m-1][3] == output[m][3]):
+            output[m][0] = output[m-1][0] + " " + output[m][0]
+            del output[m-1]
+        else:
+            m+=1
+    except (IndexError):
+        if output[m][0] == '' and (output[m-1][2] == 0):# and (output[m-1][3] == output[m][3]):
+            output[m][0] = output[m-1][0]
+            del output[m-1]
+        elif output[m][0] == '':
+            del output[m]
+        elif (output[m-1][2] == 0):# and (output[m-1][3] == output[m][3]):
+            output[m][0] = output[m-1][0] + " " + output[m][0]
+            del output[m-1]
+        else:
+            m+=1
+for line in output:
+    for n in range(len(line[0])):
+        for nn in range(n+1, len(line[0])):
+            try:
+                if line[0][n] == ' ' or line[0][n] == '.' or line[0][n] == '^':
+                    continue
+                elif line[0][n] == line[0][nn]:
+                    if line[0][nn-1] == '.' or line[0][nn-1] == '^':
+                        line[0] = line[0][:nn-1] + line[0][nn:]
+                        nn-=1
+                    try:
+                        line[0] = line[0][:nn] + line[0][nn+2:]
+                    except(IndexError):
+                        line[0] = line[0][:nn]
+            except(IndexError):
+                continue
+                
+                
 
 for i in output:
     print(i)
@@ -156,7 +199,7 @@ print(mid.ticks_per_beat)
 
 arr = np.asarray(output)
 
-pd.DataFrame(arr).to_csv('MidiTest.csv', header=False)
+pd.DataFrame(arr).to_csv(midFile+'.csv', header=False)
 
 # below are functions to find all the info you'd ever need out of Midi files
 
