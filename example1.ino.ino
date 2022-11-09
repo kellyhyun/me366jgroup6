@@ -16,8 +16,10 @@ byte GHighStatus = LOW;
 int GLowPin = 5;
 int ALowPin = 6;
 int BLowPin = 7;
-int CPin = 8;
-int DPin = 9;
+//CHANGE LATER//
+int CPin = 9;
+int DPin = 8;
+//            //
 int EPin = 10;
 int FPin = 11;
 int GPin = 12;
@@ -34,11 +36,6 @@ int GHighPin = 19;
 void setup() {
  Serial.begin(115200);
  Serial.setTimeout(1);
- pinMode(DPin,OUTPUT);
- pinMode(EPin,OUTPUT);
- pinMode(FPin,OUTPUT);
- pinMode(GPin,OUTPUT);
- pinMode(APin,OUTPUT);
 }
 void loop() {
  if(Serial.available())
@@ -77,7 +74,7 @@ void loop() {
               break;
 
             case 'G':
-              BStatus = HIGH;
+              GStatus = HIGH;
 //              Serial.println("Cmd received");
               break;
 
