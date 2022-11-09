@@ -1,3 +1,5 @@
+#include <Adafruit_NeoPixel.h>
+
 byte AStatus = HIGH;
 byte BStatus = HIGH;
 byte CStatus = HIGH;
@@ -31,16 +33,18 @@ int EHighPin = 18;
 int FHighPin = 19;
 int GHighPin = 20;
 
+#define LEDPIN 21
+#define NUMPIXELS 15
+byte LED[NUMPIXELS];
 
+Adafruit_NeoPixel pixels(NUMPIXELS, LEDPIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
  Serial.begin(115200);
  Serial.setTimeout(1);
- pinMode(CPin,OUTPUT);
- pinMode(DPin,OUTPUT);
- pinMode(EPin,OUTPUT);
- pinMode(FPin,OUTPUT);
- pinMode(GPin,OUTPUT);
+ for (int i = 5; i<=20; i++) {
+    pinMode(i,OUTPUT);
+ }
 }
 void loop() {
  if(Serial.available())
@@ -50,76 +54,91 @@ void loop() {
         {
             case 'A':
               AStatus = LOW;
+              LED[8] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'B':
               BStatus = LOW;
+              LED[9] = HIGH;
 //             Serial.println("Cmd received");
               break;
 
             case 'C':
               CStatus = LOW;
+              LED[3] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'D':
               DStatus = LOW;
+              LED[4] = HIGH;
 //             Serial.println("Cmd received");
               break;
 
             case 'E':
               EStatus = LOW;
+              LED[5] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'F':
               FStatus = LOW;
+              LED[6] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'G':
               GStatus = LOW;
+              LED[7] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'H':
               GLowStatus = LOW;
+              LED[0] = HIGH;
 //              Serial.println("Cmd received");
               break;
             
             case 'I':
               ALowStatus = LOW;
+              LED[1] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'J':
               BLowStatus = LOW;
+              LED[2] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'K':
               CHighStatus = LOW;
+              LED[10] = HIGH;
 //              Serial.println("Cmd received");
               break;
   
             case 'L':
               DHighStatus = LOW;
+              LED[11] = HIGH;
 //            Serial.println("Cmd received");
              break;
 
             case 'M':
               EHighStatus = LOW;
+              LED[12] = HIGH;
 //              Serial.println("Cmd received");
               break;
 
             case 'N':
               FHighStatus = LOW;
+              LED[13] = HIGH;
 //            Serial.println("Cmd received");
               break;
 
             case 'O':
               GHighStatus = LOW;
+              LED[14] = HIGH;
               //Serial.println("Cmd received");
               break;
   
@@ -131,6 +150,13 @@ void loop() {
 }
 
 void play() {
+  for (int i = 0; i < NUMPIXELS; i++) {
+    if (LED[i] == HIGH) {
+        pixels.setPixelColor(i, pixels.Color(150, 150, 150));
+        LED[i] = LOW;
+    }
+  }
+  pixels.show();
   digitalWrite(GLowPin,GLowStatus);
   digitalWrite(ALowPin,ALowStatus);
   digitalWrite(BLowPin,BLowStatus);
@@ -147,6 +173,7 @@ void play() {
   digitalWrite(FHighPin,FHighStatus);
   digitalWrite(GHighPin,GHighStatus);
   delay(50);
+  pixels.clear();
   AStatus = HIGH;
   BStatus = HIGH;
   CStatus = HIGH;
