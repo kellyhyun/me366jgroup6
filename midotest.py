@@ -13,7 +13,13 @@ def get_tempo(mid):
     return 500000       # If not found return default tempo
 
 
-midFile = 'C_cant_hold_us'
+midFile = 'recording_basic_pitch'
+if midFile == 'recording_basic_pitch':
+    lowLim = 90
+    highLim = 93
+else:
+    lowLim = 66
+    highLim = 69
 mid = mido.MidiFile(midFile+'.mid', clip=True)
 # mid.tracks
 
@@ -47,7 +53,7 @@ for i in mididict:
 # put note, starttime, stoptime, as nested list in a list. # format is [type, note, time, channel]
     mem2=[]
     if i['type'] == 'note_on': #or i['type'] == 'note_off':
-        if i['note'] <= 66:
+        if i['note'] <= lowLim:
             if i['note'] % 12 == 0:
                 i['note'] = 'C'
             elif i['note'] % 12 == 1:
@@ -77,7 +83,7 @@ for i in mididict:
                 i['note'] = ''
             elif i['note'] % 12 == 11:
                 i['note'] = '.B'
-        elif i['note'] >= 69:
+        elif i['note'] >= highLim:
             if i['note'] % 12 == 0:
                 i['note'] = '^C'
             elif i['note'] % 12 == 1:
