@@ -15,7 +15,7 @@ import time
 def readSong(filePath):
     return pd.read_csv(filePath, sep=',', header=0, low_memory = False)
 
-def tester(filePath):
+def playSong(filePath):
     song = readSong(filePath)
     time.sleep(3)
     for index, row in song.iterrows():
@@ -61,6 +61,8 @@ def sendData(note):
         arduino.write(str.encode('O'))
     if note == 'p':
         arduino.write(str.encode('p'))
+    if note == 'q':
+        arduino.write(str.encode('q'))
 
 # #TESTING WITHOUT ARDUINO
 # def tester(filePath):
@@ -129,11 +131,11 @@ class ButtonApp(App):
     # callback function tells when button pressed
     def callback(self, event):
         print("Twinkle")
-        tester('TwinkleTwinkleSimple.csv')
+        playSong('TwinkleTwinkleSimple.csv')
         
     def callback2(self, event):
         print("HotCrossBuns")
-        tester('HotCrossBuns.csv')
+        playSong('HotCrossBuns.csv')
         
     def close_application(self, event):
         # closing application

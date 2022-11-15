@@ -176,9 +176,55 @@ void loop() {
   
             case 'p':
               play();
-              break;    
+              break;
+
+            case 'q':
+              light();
+              break;
+              
         }
     } 
+}
+
+void light() {
+  for (int i = 0; i < NUMPIXELS; i++) {
+    if (LED[i] == HIGH) {
+        pixels.setPixelColor(i, pixels.Color(colors[i][0],colors[i][1],colors[i][2]));
+        LED[i] = LOW;
+    }
+  }
+  pixels.show();
+  AStatus = HIGH;
+  BStatus = HIGH;
+  CStatus = HIGH;
+  DStatus = HIGH;
+  EStatus = HIGH;
+  FStatus = HIGH;
+  GStatus = HIGH;
+  GLowStatus = HIGH;
+  ALowStatus = HIGH;
+  BLowStatus = HIGH;
+  CHighStatus = HIGH;
+  DHighStatus = HIGH;
+  EHighStatus = HIGH;
+  FHighStatus = HIGH;
+  GHighStatus = HIGH;
+  pixels.clear();
+  digitalWrite(GLowPin,GLowStatus);
+  digitalWrite(ALowPin,ALowStatus);
+  digitalWrite(BLowPin,BLowStatus);
+  digitalWrite(CPin,CStatus);
+  digitalWrite(DPin,DStatus);
+  digitalWrite(EPin,EStatus);
+  digitalWrite(FPin,FStatus);
+  digitalWrite(GPin,GStatus);
+  digitalWrite(APin,AStatus);
+  digitalWrite(BPin,BStatus);
+  digitalWrite(CHighPin,CHighStatus);
+  digitalWrite(DHighPin,DHighStatus);
+  digitalWrite(EHighPin,EHighStatus);
+  digitalWrite(FHighPin,FHighStatus);
+  digitalWrite(GHighPin,GHighStatus);
 }
 
 void play() {
