@@ -109,10 +109,11 @@ class RootWidget(BoxLayout):
         lightSong('HotCrossBuns.csv')
     
     def record(self):
+        print("recordingnow")
         MidoAndRecord.main()
     
-    def play2(self):
-        print("RecordingPlay")
+    def playRecording(self):
+        print("playrecording")
         playSong('recording_basic_pitch.csv')
 
 class TestApp(App):
