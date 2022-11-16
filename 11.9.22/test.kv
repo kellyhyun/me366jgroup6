@@ -11,21 +11,46 @@
             cols:1
             row_default_height: 100
             size_hint_y: None
-            height: self.minimum_height  # <<<<<<<<<<<<<<<<
+            height: self.minimum_height  
         
     Label:
-        text: 'Please choose a song.'
+        text: 'Please choose a song to play.'
         background_color: utils.get_color_from_hex('#48A9A6')
     
     Button:
         text: 'Twinkle Twinkle Little Star'
         background_color: utils.get_color_from_hex('#48A9A6')
-        on_press: root.callback() 
+        on_press: root.play1() 
 
     Button:
         text: 'Hot Cross Buns'
         background_color: utils.get_color_from_hex('#48A9A6')
-        on_press: root.callback2() 
+        on_press: root.play2() 
        
-        
+    Label:
+        text: 'Please choose a song to light up and follow along.'
+        background_color: utils.get_color_from_hex('#48A9A6')
+    
+    Button:
+        text: 'Twinkle Twinkle Little Star'
+        background_color: utils.get_color_from_hex('#4357ad')
+        on_press: root.light1()
+    
+    Button:
+        text: 'Hot Cross Buns'
+        background_color: utils.get_color_from_hex('#4357ad')
+        on_press: root.light2()
    
+    Label:
+        text: 'Record youself!'
+        background_color: utils.get_color_from_hex('#48A9A6')
+   
+    Button:
+        text: 'Record yourself first'
+        background_color: utils.get_color_from_hex('#d4b483')
+        on_press: root.record()
+       
+    Button:
+        text: 'Play your recording.'
+        background_color: utils.get_color_from_hex('#d4b483')
+        on_press: root.playRecording()
