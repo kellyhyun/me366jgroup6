@@ -13,8 +13,8 @@ def get_tempo(mid):
     return 500000       # If not found return default tempo
 
 
-midFile = 'recording_basic_pitch'
-if midFile == 'recording_basic_pitch':
+midFile = 'corrected_recording_basic_pitch'
+if midFile == 'recording_basic_pitch' or 'corrected_recording_basic_pitch':
     lowLim = 90
     highLim = 93
 else:
@@ -41,6 +41,7 @@ for i in mid:
         key = key['key']
 # change time values from delta to relative time.
 mem1=0
+# print(mididict)
 for i in mididict:
     time = i['time'] + mem1
     delay = time - prevTime
@@ -199,6 +200,7 @@ for line in output:
 
 for i in output:
     print(i)
+# print(mid)
 print(mid.ticks_per_beat)
 # print(mid.tracks)
 # print(key)
@@ -308,3 +310,4 @@ pd.DataFrame(arr).to_csv(midFile+'.csv', header=False)
 # plt.show()
 
 # print(result_array)
+# pd.DataFrame(result_array).to_csv('recording_test.csv', header=True)
