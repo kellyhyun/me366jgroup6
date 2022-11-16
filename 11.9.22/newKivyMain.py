@@ -38,6 +38,7 @@ def playSong(filePath):
             sendData(each)
         time.sleep(delay)
         sendData('p')
+    sendData('z')
         
 def lightSong(filePath):
     song = readSong(filePath)
@@ -51,6 +52,7 @@ def lightSong(filePath):
             sendData(each)
         time.sleep(delay)
         sendData('q')
+    sendData('z')
 
 def sendData(note):
     if note == 'A':
@@ -87,6 +89,8 @@ def sendData(note):
         arduino.write(str.encode('p'))
     if note == 'q':
         arduino.write(str.encode('q'))
+    if note == 'z':
+        arduino.write(str.encode('z'))
 
 class RootWidget(BoxLayout):
     def __init__(self, **kwargs): 

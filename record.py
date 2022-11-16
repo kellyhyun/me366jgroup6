@@ -15,7 +15,7 @@ chan = 1
 
 # Record at 44400 samples per second
 smpl_rt = 44400
-seconds = 10
+seconds = 15
 filename = "recording.wav"
 
 # Create an interface to PortAudio
@@ -57,4 +57,4 @@ file_path = 'recording_basic_pitch.mid'
 if os.path.isfile(file_path):
   os.remove(file_path)
 
-predict_and_save([filename],'',True,False,False,False,)
+predict_and_save([filename],'',True, False,False,True)

@@ -46,7 +46,7 @@ int colors[NUMPIXELS][3] =
     {0, 255, 0},
     {150, 150, 0},
     {150, 150, 0},
-    {150, 97, 0},
+    {255, 50, 0},
     {255, 0, 0},
     {255, 0, 0},
     {150, 0, 150},
@@ -56,8 +56,8 @@ int colors[NUMPIXELS][3] =
     {0, 255, 0},
     {0, 255, 0},
     {150, 150, 0},
-    {150, 97, 0},
-    {150, 97, 0},
+    {255, 50, 0},
+    {255, 50, 0},
     {255, 0, 0},
   };
 
@@ -181,6 +181,12 @@ void loop() {
             case 'q':
               light();
               break;
+
+            case 'z':
+              delay(100);
+              pixels.clear();
+              pixels.show();
+              break;
               
         }
     } 
@@ -194,6 +200,7 @@ void light() {
     }
   }
   pixels.show();
+  delay(50);
   AStatus = HIGH;
   BStatus = HIGH;
   CStatus = HIGH;
