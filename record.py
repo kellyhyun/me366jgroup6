@@ -57,5 +57,21 @@ sf.close()
 file_path = 'recording_basic_pitch.mid'
 if os.path.isfile(file_path):
   os.remove(file_path)
+if os.path.isfile('corrected_recording_basic_pitch.mid'):
+  os.remove('corrected_recording_basic_pitch.mid')
 
 predict_and_save([filename],'',True,False,False,False)
+
+file = 'recording_basic_pitch.mid'
+
+#os.chdir("./")
+
+try:
+    if file[0:2] != "C_":
+        score = music21.converter.parse(file)
+        key = score.analyze('key')
+    
+        newFileName = "corrected_" + file
+        score.write('midi',newFileName)
+except(AttributeError):
+    print("Error: " + file)
