@@ -1,56 +1,52 @@
 #%%
 def main() :
-    import mido
-    import string
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
     import pyaudio
     import wave
     import os
     import tensorflow as tf
+    import music21
     from basic_pitch.inference import predict
     from basic_pitch.inference import predict_and_save
     from basic_pitch import ICASSP_2022_MODEL_PATH
-    
+
     # Record in chunks of 1024 samples
     chunk = 1024
-    
+
     # 16 bits per sample
     sample_format = pyaudio.paInt16
     chan = 1
-    
+
     # Record at 44400 samples per second
     smpl_rt = 44400
-    seconds = 10
+    seconds = 15
     filename = "recording.wav"
-    
+
     # Create an interface to PortAudio
     pa = pyaudio.PyAudio()
-    
+
     stream = pa.open(format=sample_format, channels=chan,
     				rate=smpl_rt, input=True,
     				frames_per_buffer=chunk)
-    
+
     print('Recording...')
-    
+
     # Initialize array that be used for storing frames
     frames = []
-    
+
     # Store data in chunks for 8 seconds
     for i in range(0, int(smpl_rt / chunk * seconds)):
     	data = stream.read(chunk)
     	frames.append(data)
-    
+
     # Stop and close the stream
     stream.stop_stream()
     stream.close()
-    
+
     # Terminate - PortAudio interface
     pa.terminate()
-    
+
     print('Done !!! ')
-    
+
     # Save the recorded data in a .wav format
     sf = wave.open(filename, 'wb')
     sf.setnchannels(chan)
@@ -58,24 +54,45 @@ def main() :
     sf.setframerate(smpl_rt)
     sf.writeframes(b''.join(frames))
     sf.close()
-    
-    
+
+
     file_path = 'recording_basic_pitch.mid'
     if os.path.isfile(file_path):
       os.remove(file_path)
+    if os.path.isfile('corrected_recording_basic_pitch.mid'):
+      os.remove('corrected_recording_basic_pitch.mid')
+
+    predict_and_save([filename],'',True,False,False,False)
+
+    file = 'recording_basic_pitch.mid'
+
+    #os.chdir("./")
+
+    try:
+        if file[0:2] != "C_":
+            score = music21.converter.parse(file)
+            key = score.analyze('key')
+        
+            newFileName = "corrected_" + file
+            score.write('midi',newFileName)
+    except(AttributeError):
+        print("Error: " + file)
     
-    predict_and_save([filename],'',True,False,False,False,)
-    
-    
+    import mido
+    import string
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
     def get_tempo(mid):
         for n in mid:     # Search for tempo
             if n.type == 'set_tempo':
                 return n.tempo
         return 500000       # If not found return default tempo
-    
-    
-    midFile = 'recording_basic_pitch'
-    if midFile == 'recording_basic_pitch':
+
+
+    midFile = 'corrected_recording_basic_pitch'
+    if midFile == 'recording_basic_pitch' or 'corrected_recording_basic_pitch':
         lowLim = 90
         highLim = 93
     else:
@@ -83,21 +100,16 @@ def main() :
         highLim = 69
     mid = mido.MidiFile(midFile+'.mid', clip=True)
     # mid.tracks
-    
-    
-    
-    
-    
-    
+
     tempo = get_tempo(mid)
     bpm = (60000000/tempo)
     bps = bpm/60.0
     time = 0
     prevTime = 0
-    
+
     mididict = []
     output = []
-    
+
     # Put all note on/off in midinote as dictionary.
     for i in mid:
         if i.type == 'note_on' or i.type == 'note_off' or i.type == 'time_signature':
@@ -107,6 +119,7 @@ def main() :
             key = key['key']
     # change time values from delta to relative time.
     mem1=0
+    # print(mididict)
     for i in mididict:
         time = i['time'] + mem1
         delay = time - prevTime
@@ -185,7 +198,7 @@ def main() :
                 elif i['note'] % 12 == 8:
                     # i['note'] = 'G#'
                     i['note'] = ''
-    
+
             # mem2.append(i['type'])
             mem2.append(i['note'])
             mem2.append(i['time'])
@@ -203,17 +216,17 @@ def main() :
             # mem2.append(i['time'])
             # # mem2.append(int(i['delay']*bps))
             # output.append(mem2)
-    
+
             mem2 = []
             mem2.append('Note')
             mem2.append('Time')
             mem2.append("Delay")
             mem2.append('Channel')
             output.append(mem2)
-    
+
             prevTime = i['time']
     # viewing the midimessages.
-    
+
     for n in range(1,len(output)):
         # if str(output[n][2]).isnumeric():
         try:
@@ -221,7 +234,7 @@ def main() :
         except IndexError:
             output[n][2] = 0.0
         # print(output[n][2])
-    
+
     m = 1
     while m < len(output):
         try:
@@ -262,20 +275,20 @@ def main() :
                     continue
                     
                     
-    
+
     for i in output:
         print(i)
+    # print(mid)
     print(mid.ticks_per_beat)
-    
     # print(mid.tracks)
     # print(key)
-    
+
     arr = np.asarray(output)
-    
+
     pd.DataFrame(arr).to_csv(midFile+'.csv', header=False)
-    
+
     # below are functions to find all the info you'd ever need out of Midi files
-    
+
     # def msg2dict(msg):
     #     result = dict()
     #     if 'note_on' in msg:
@@ -286,26 +299,26 @@ def main() :
     #         on_ = None
     #     result['time'] = int(msg[msg.rfind('time'):].split(' ')[0].split('=')[1].translate(
     #         str.maketrans({a: None for a in string.punctuation})))
-    
+
     #     if on_ is not None:
     #         for k in ['note', 'velocity']:
     #             result[k] = int(msg[msg.rfind(k):].split(' ')[0].split('=')[1].translate(
     #                 str.maketrans({a: None for a in string.punctuation})))
     #     return [result, on_]
-    
+
     # def switch_note(last_state, note, velocity, on_=True):
     #     # piano has 88 notes, corresponding to note id 21 to 108, any note out of this range will be ignored
     #     result = [0] * 88 if last_state is None else last_state.copy()
     #     if 21 <= note <= 108:
     #         result[note-21] = velocity if on_ else 0
     #     return result
-    
-    
+
+
     # def get_new_state(new_msg, last_state):
     #     new_msg, on_ = msg2dict(str(new_msg))
     #     new_state = switch_note(last_state, note=new_msg['note'], velocity=new_msg['velocity'], on_=on_) if on_ is not None else last_state
     #     return [new_state, new_msg['time']]
-    
+
     # def track2seq(track):
     #     # piano has 88 notes, corresponding to note id 21 to 108, any note out of the id range will be ignored
     #     result = []
@@ -316,7 +329,7 @@ def main() :
     #             result += [last_state]*new_time
     #         last_state, last_time = new_state, new_time
     #     return result
-    
+
     # def mid2arry(mid, min_msg_pct=0.1):
     #     tracks_len = [len(tr) for tr in mid.tracks]
     #     min_n_msg = max(tracks_len) * min_msg_pct
@@ -337,7 +350,7 @@ def main() :
     #     sums = all_arys.sum(axis=1)
     #     ends = np.where(sums > 0)[0]
     #     return all_arys[min(ends): max(ends)]
-    
+
     # def arry2mid(ary, tempo=500000):
     #     # get the difference
     #     new_ary = np.concatenate([np.array([[0] * 88]), np.array(ary)], axis=0)
@@ -367,11 +380,12 @@ def main() :
     #                 first_ = False
     #             last_time = 0
     #     return mid_new
-    
+
         
     # result_array = mid2arry(mid)
     # plt.plot(range(result_array.shape[0]), np.multiply(np.where(result_array>0, 1, 0), range(1, 89)), marker='.', markersize=1, linestyle='')
     # plt.title("twinkle-twinkle-little-star.mid")
     # plt.show()
-    
+
     # print(result_array)
+    # pd.DataFrame(result_array).to_csv('recording_test.csv', header=True)

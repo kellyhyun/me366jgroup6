@@ -118,7 +118,7 @@ class RootWidget(BoxLayout):
     
     def playRecording(self):
         print("playrecording")
-        playSong('recording_basic_pitch.csv')
+        playSong('corrected_recording_basic_pitch.csv')
 
 class TestApp(App):
     def build(self):

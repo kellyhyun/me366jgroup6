@@ -1,0 +1,121 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    ThirdWindow:
+    FourthWindow:
+
+<MainWindow>:
+    name: "main"
+
+    GridLayout:
+        cols:1
+
+        Label:
+            text: "Automated Musical Xylophone"
+
+        Button:
+            text: "Play and Light Up"
+            on_release:
+                app.root.current = "play" 
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Light Up and Follow Along"
+            on_release:
+                app.root.current = "light" 
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Record and Play Recording"
+            on_release:
+                app.root.current = "record" 
+                root.manager.transition.direction = "left"
+
+
+<SecondWindow>:
+    name: "play"
+    GridLayout:
+        cols:1
+        Button:
+            text: "Can't Hold Us"
+            on_press:
+                root.play1()
+        
+        Button:
+            text: "Under the Sea"
+            on_press:
+                root.play2()
+        
+        Button:
+            text: "Whole New World"
+            on_press:
+                root.play3()
+                
+        Button:
+            text: "Stay by Rihanna"
+            on_press:
+                root.play4()
+        
+        Button:
+            text: "Twinkle Twinkle Little Star"
+            on_press:
+                root.play5()
+        
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+<ThirdWindow>:
+    name: "light"
+    GridLayout:
+        cols:1
+        Button:
+            text: "Can't Hold Us"
+            on_press:
+                root.light1()
+        
+        Button:
+            text: "Under the Sea"
+            on_press:
+                root.light2()
+        
+        Button:
+            text: "Whole New World"
+            on_press:
+                root.light3()
+                
+        Button:
+            text: "Stay by Rihanna"
+            on_press:
+                root.light4()
+        
+        Button:
+            text: "Twinkle Twinkle Little Star"
+            on_press:
+                root.light5()
+        
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+  
+
+<FourthWindow>:
+    name: "record"
+    GridLayout:
+        cols:1
+        Button:
+            text: "Record Your Melody"
+            on_press:
+                root.record()
+        
+        Button:
+            text: "Play Your Recording"
+            on_press:
+                root.playRecording()
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
