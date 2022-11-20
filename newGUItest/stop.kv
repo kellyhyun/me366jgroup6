@@ -3,6 +3,7 @@ WindowManager:
     SecondWindow:
     ThirdWindow:
     FourthWindow:
+    FifthWindow:
 
 <MainWindow>:
     name: "main"
@@ -38,31 +39,41 @@ WindowManager:
             text: "Can't Hold Us"
             on_press:
                 root.play1()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Under the Sea"
             on_press:
                 root.play2()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Whole New World"
             on_press:
                 root.play3()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
                 
         Button:
             text: "Stay by Rihanna"
             on_press:
                 root.play4()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Twinkle Twinkle Little Star"
             on_press:
                 root.play5()
-        
-        Button:
-            text: "print"
-            on_press:
-                root.printwhile()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
                 
         Button:
             text: "Back"
@@ -78,26 +89,41 @@ WindowManager:
             text: "Can't Hold Us"
             on_press:
                 root.light1()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Under the Sea"
             on_press:
                 root.light2()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Whole New World"
             on_press:
                 root.light3()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
                 
         Button:
             text: "Stay by Rihanna"
             on_press:
                 root.light4()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Twinkle Twinkle Little Star"
             on_press:
                 root.light5()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
         
         Button:
             text: "Back"
@@ -110,17 +136,65 @@ WindowManager:
     name: "record"
     GridLayout:
         cols:1
+        
+        Label: 
+            id: label2
+            name: "label2"
+            text: "Waiting for Instruction"
+            
         Button:
             text: "Record Your Melody"
             on_press:
+                root.start()
+            on_release:
+                root.middle()
+        
+        Button:
+            text: "Turn MIDI to CSV"
+            on_press:
+                root.almostEnd()
+            on_release:
                 root.record()
         
         Button:
             text: "Play Your Recording"
             on_press:
                 root.playRecording()
+            on_release:
+                app.root.current = "startStop" 
+                root.manager.transition.direction = "left"
+                
         Button:
             text: "Back"
             on_release:
                 app.root.current = "main"
                 root.manager.transition.direction = "right"
+
+<FifthWindow>:
+    name: "startStop"
+    GridLayout:
+        cols:1
+        
+        Label: 
+            id: label1
+            name: "label1"
+            text: "Waiting for Instruction"
+        
+        Button:
+            text: "Start Song"
+            on_press:
+                root.startSong()
+        
+        Button:
+            text: "Stop Song"
+            on_press:
+                root.stopSong()
+        
+        Button:
+            text: "Back"
+            on_release:
+                screen = root.returnBack()
+                app.root.current = screen
+                root.manager.transition.direction = "right"
+                
+        

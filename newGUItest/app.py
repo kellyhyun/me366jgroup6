@@ -29,11 +29,11 @@ def playSong(filePath):
         delay = row["Delay"]
         note = note.split()
         print(note)
-        # for each in note:
-        #     sendData(each)
+        for each in note:
+            sendData(each)
         time.sleep(delay)
-        # sendData('p')
-    # sendData('z')
+        sendData('p')
+    sendData('z')
         
 def lightSong(filePath):
     song = readSong(filePath)
@@ -43,49 +43,49 @@ def lightSong(filePath):
         delay = row["Delay"]
         note = note.split()
         print(note)
-        # for each in note:
-            # sendData(each)
+        for each in note:
+            sendData(each)
         time.sleep(delay)
-        # sendData('q')
-    # sendData('z')
+        sendData('q')
+    sendData('z')
 
-# def sendData(note):
-#     if note == 'A':
-#         arduino.write(str.encode('A'))
-#     if note == 'B':
-#         arduino.write(str.encode('B'))
-#     if note == 'C':
-#         arduino.write(str.encode('C'))
-#     if note == 'D':
-#         arduino.write(str.encode('D'))
-#     if note == 'E':
-#         arduino.write(str.encode('E'))
-#     if note == 'F':
-#         arduino.write(str.encode('F'))
-#     if note == 'G':
-#         arduino.write(str.encode('G'))
-#     if note == '.G':
-#         arduino.write(str.encode('H'))
-#     if note == '.A':
-#         arduino.write(str.encode('I'))
-#     if note == '.B':
-#         arduino.write(str.encode('J'))
-#     if note == '^C':
-#         arduino.write(str.encode('K'))
-#     if note == '^D':
-#         arduino.write(str.encode('L'))
-#     if note == '^E':
-#         arduino.write(str.encode('M'))
-#     if note == '^F':
-#         arduino.write(str.encode('N'))
-#     if note == '^G':
-#         arduino.write(str.encode('O'))
-#     if note == 'p':
-#         arduino.write(str.encode('p'))
-#     if note == 'q':
-#         arduino.write(str.encode('q'))
-#     if note == 'z':
-#         arduino.write(str.encode('z'))
+def sendData(note):
+    if note == 'A':
+        arduino.write(str.encode('A'))
+    if note == 'B':
+        arduino.write(str.encode('B'))
+    if note == 'C':
+        arduino.write(str.encode('C'))
+    if note == 'D':
+        arduino.write(str.encode('D'))
+    if note == 'E':
+        arduino.write(str.encode('E'))
+    if note == 'F':
+        arduino.write(str.encode('F'))
+    if note == 'G':
+        arduino.write(str.encode('G'))
+    if note == '.G':
+        arduino.write(str.encode('H'))
+    if note == '.A':
+        arduino.write(str.encode('I'))
+    if note == '.B':
+        arduino.write(str.encode('J'))
+    if note == '^C':
+        arduino.write(str.encode('K'))
+    if note == '^D':
+        arduino.write(str.encode('L'))
+    if note == '^E':
+        arduino.write(str.encode('M'))
+    if note == '^F':
+        arduino.write(str.encode('N'))
+    if note == '^G':
+        arduino.write(str.encode('O'))
+    if note == 'p':
+        arduino.write(str.encode('p'))
+    if note == 'q':
+        arduino.write(str.encode('q'))
+    if note == 'z':
+        arduino.write(str.encode('z'))
 
 
 class MainWindow(Screen):
@@ -111,7 +111,9 @@ class SecondWindow(Screen):
     def play5(self):
         print("twinkle")
         playSong('songs\C_twinkle-twinkle-little-star.csv')
-
+        
+    def printwhile(self):
+        print("this")
 
 class ThirdWindow(Screen):
     def light1(self):
@@ -158,9 +160,9 @@ class MyMainApp(App):
 
 if __name__ == "__main__":
     reset()
-    # portName = "COM6"
-    # baudRate = 115200
-    # arduino = serial.Serial(portName, baudRate)
+    portName = "COM6"
+    baudRate = 115200
+    arduino = serial.Serial(portName, baudRate)
     reset()
     MyMainApp().run()
     Window.close()
