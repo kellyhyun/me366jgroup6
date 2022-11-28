@@ -520,7 +520,7 @@ class WindowManager(ScreenManager):
     pass
 
 
-kv = Builder.load_file("stop.kv")
+kv = Builder.load_file("final.kv")
 
 
 class MyMainApp(App):

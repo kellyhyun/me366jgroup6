@@ -160,7 +160,7 @@ class MyMainApp(App):
 
 if __name__ == "__main__":
     reset()
-    portName = "COM6"
+    portName = "COM3"
     baudRate = 115200
     arduino = serial.Serial(portName, baudRate)
     reset()
