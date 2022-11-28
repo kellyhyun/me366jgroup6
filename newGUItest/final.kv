@@ -1,9 +1,15 @@
+#:import C kivy.utils.get_color_from_hex  
+
 WindowManager:
     MainWindow:
     SecondWindow:
     ThirdWindow:
     FourthWindow:
     FifthWindow:
+ 
+<Button>
+    background_normal: 'buttonNormal.png'
+    background_color: C("#1B3B6F") 
 
 <MainWindow>:
     name: "main"

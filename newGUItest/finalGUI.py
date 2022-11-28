@@ -520,7 +520,7 @@ class WindowManager(ScreenManager):
     pass
 
 
-kv = Builder.load_file("stop.kv")
+kv = Builder.load_file("final.kv")
 
 
 class MyMainApp(App):
@@ -530,7 +530,7 @@ class MyMainApp(App):
 
 if __name__ == "__main__":
     reset()
-    portName = "COM3"
+    portName = "COM6"
     baudRate = 115200
     arduino = serial.Serial(portName, baudRate)
     reset()
