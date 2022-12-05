@@ -4,18 +4,18 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 import time
 import pandas as pd
 import serial 
-import MidoAndRecord
+# import MidoAndRecord
 from kivy.core.window import Window 
 import threading
 import pyaudio
 import wave
 import os
-import tensorflow as tf
+# import tensorflow as tf
 import music21
-from basic_pitch.inference import predict
+# from basic_pitch.inference import predict
 from basic_pitch.inference import predict_and_save
-from basic_pitch import ICASSP_2022_MODEL_PATH
-from kivy.clock import Clock
+# from basic_pitch import ICASSP_2022_MODEL_PATH
+# from kivy.clock import Clock
 from kivy.properties import StringProperty
 
 
@@ -43,6 +43,7 @@ def playSong(filePath):
         print(note)
         for each in note:
             sendData(each)
+            print(each)
         time.sleep(delay)
         if stopThread == True:
             break
@@ -142,6 +143,7 @@ class SecondWindow(Screen):
         
     def play1(self):
         print("cantholdus")
+        # setFilePlay('songs\C_cant_hold_us.csv')4
         setFilePlay('songs\C_cant_hold_us.csv')
     
     def play2(self):
@@ -159,6 +161,34 @@ class SecondWindow(Screen):
     def play5(self):
         print("twinkle")
         setFilePlay('songs\C_twinkle-twinkle-little-star.csv')
+        
+    def play6(self):
+        print("wanna build a snowman")
+        setFilePlay('songs\C_39139_Do-You-Wanna-Build-A-Snowman.csv')
+    
+    def play7(self):
+        print("bingo")
+        setFilePlay('songs\C_BingoPNO.csv')
+        
+    def play8(self):
+        print("kissthegirl")
+        setFilePlay('songs\C_DisneyThemes_Kiss_The_Girl.csv')
+
+    def play9(self):
+        print("imperialmarch")
+        setFilePlay('songs\C_imperial_march.csv')
+        
+    def play10(self):
+        print("jinglebells")
+        setFilePlay('songs\C_jingle_bells_PNO.csv')
+        
+    def play11(self):
+        print("maryhadalamb")
+        setFilePlay('songs\C_mary_had_a_little_lamb_PNO.csv')
+    
+    def play12(self):
+        print("wreckingball")
+        setFilePlay('songs\C_wrecking_ball.csv')
     
 
 class ThirdWindow(Screen):
@@ -180,6 +210,34 @@ class ThirdWindow(Screen):
     def light5(self):
         print("twinkle")
         setFileLight('songs\C_twinkle-twinkle-little-star.csv')
+    
+    def light6(self):
+        print("wanna build a snowman")
+        setFileLight('songs\C_39139_Do-You-Wanna-Build-A-Snowman.csv')
+    
+    def light7(self):
+        print("bingo")
+        setFileLight('songs\C_BingoPNO.csv')
+        
+    def light8(self):
+        print("kissthegirl")
+        setFileLight('songs\C_DisneyThemes_Kiss_The_Girl.csv')
+
+    def light9(self):
+        print("imperialmarch")
+        setFileLight('songs\C_imperial_march.csv')
+        
+    def light10(self):
+        print("jinglebells")
+        setFileLight('songs\C_jingle_bells_PNO.csv')
+        
+    def light11(self):
+        print("maryhadalamb")
+        setFileLight('songs\C_mary_had_a_little_lamb_PNO.csv')
+    
+    def light12(self):
+        print("wreckingball")
+        setFileLight('songs\C_wrecking_ball.csv')
 
 class FourthWindow(Screen):  
     recordString = StringProperty()
@@ -201,7 +259,7 @@ class FourthWindow(Screen):
         global smpl_rt
         smpl_rt = 44400
         global seconds
-        seconds = 15
+        seconds = 10
         filename = "recording.wav"
 
         # Create an interface to PortAudio
